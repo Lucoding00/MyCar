@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whut.mapper.BusReturnMapper">
+    <resultMap id="BaseResultMap" type="com.whut.model.BusReturn">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="num" jdbcType="VARCHAR" property="num"/>
+        <result column="rent_id" jdbcType="INTEGER" property="rentId"/>
+        <result column="return_time" jdbcType="VARCHAR" property="returnTime"/>
+        <result column="rent_price" jdbcType="INTEGER" property="rentPrice"/>
+        <result column="pay_money" jdbcType="INTEGER" property="payMoney"/>
+        <result column="problem" jdbcType="VARCHAR" property="problem"/>
+        <result column="total_money" jdbcType="INTEGER" property="totalMoney"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <resultMap id="BaseResultMapVo" type="com.whut.vo.BusReturnVo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="num" jdbcType="VARCHAR" property="num"/>
+        <result column="rent_id" jdbcType="INTEGER" property="rentId"/>
+        <result column="return_time" jdbcType="VARCHAR" property="returnTime"/>
+        <result column="rent_price" jdbcType="INTEGER" property="rentPrice"/>
+        <result column="pay_money" jdbcType="INTEGER" property="payMoney"/>
+        <result column="problem" jdbcType="VARCHAR" property="problem"/>
+        <result column="total_money" jdbcType="INTEGER" property="totalMoney"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, num, rent_id, return_time, rent_price, pay_money, problem, total_money, user_id, 
+    create_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from bus_return
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bus_return
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.whut.model.BusReturn">
+    insert into bus_return (id, num, rent_id, 
+      return_time, rent_price, pay_money, 
+      problem, total_money, user_id, 
+      create_time)
+    values (#{id,jdbcType=INTEGER}, #{num,jdbcType=VARCHAR}, #{rentId,jdbcType=INTEGER}, 
+      #{returnTime,jdbcType=VARCHAR}, #{rentPrice,jdbcType=INTEGER}, #{payMoney,jdbcType=INTEGER}, 
+      #{problem,jdbcType=VARCHAR}, #{totalMoney,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.whut.model.BusReturn">
+        insert into bus_return
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="num != null">
+                num,
+            </if>
+            <if test="rentId != null">
+                rent_id,
+            </if>
+            <if test="returnTime != null">
+                return_time,
+            </if>
+            <if test="rentPrice != null">
+                rent_price,
+            </if>
+            <if test="payMoney != null">
+                pay_money,
+            </if>
+            <if test="problem != null">
+                problem,
+            </if>
+            <if test="totalMoney != null">
+                total_money,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="num != null">
+                #{num,jdbcType=VARCHAR},
+            </if>
+            <if test="rentId != null">
+                #{rentId,jdbcType=INTEGER},
+            </if>
+            <if test="returnTime != null">
+                #{returnTime,jdbcType=VARCHAR},
+            </if>
+            <if test="rentPrice != null">
+                #{rentPrice,jdbcType=INTEGER},
+            </if>
+            <if test="payMoney != null">
+                #{payMoney,jdbcType=INTEGER},
+            </if>
+            <if test="problem != null">
+                #{problem,jdbcType=VARCHAR},
+            </if>
+            <if test="totalMoney != null">
+                #{totalMoney,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.whut.model.BusReturn">
+        update bus_return
+        <set>
+            <if test="num != null">
+                num = #{num,jdbcType=VARCHAR},
+            </if>
+            <if test="rentId != null">
+                rent_id = #{rentId,jdbcType=INTEGER},
+            </if>
+            <if test="returnTime != null">
+                return_time = #{returnTime,jdbcType=VARCHAR},
+            </if>
+            <if test="rentPrice != null">
+                rent_price = #{rentPrice,jdbcType=INTEGER},
+            </if>
+            <if test="payMoney != null">
+                pay_money = #{payMoney,jdbcType=INTEGER},
+            </if>
+            <if test="problem != null">
+                problem = #{problem,jdbcType=VARCHAR},
+            </if>
+            <if test="totalMoney != null">
+                total_money = #{totalMoney,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.whut.model.BusReturn">
+    update bus_return
+    set num = #{num,jdbcType=VARCHAR},
+      rent_id = #{rentId,jdbcType=INTEGER},
+      return_time = #{returnTime,jdbcType=VARCHAR},
+      rent_price = #{rentPrice,jdbcType=INTEGER},
+      pay_money = #{payMoney,jdbcType=INTEGER},
+      problem = #{problem,jdbcType=VARCHAR},
+      total_money = #{totalMoney,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <insert id="insertForm">
+    insert into bus_return ( num, rent_id,return_time, rent_price, pay_money,problem, total_money, user_id,create_time)
+      value (
+      #{num},
+      #{rentId},
+      #{returnTime},
+      #{rentPrice},
+      #{payMoney},
+      #{problem},
+      #{totalMoney},
+      #{userId},
+      #{createTime}
+      )
+
+  </insert>
+
+    <select id="selectList" resultMap="BaseResultMapVo">
+        select <include refid="Base_Column_List"/>
+        from bus_return
+        <where>
+            <if test="num != null and num != ''">
+                and num = #{num}
+            </if>
+        </where>
+    </select>
+</mapper>
