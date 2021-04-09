@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whut.mapper.BusCustomerMapper">
+    <resultMap id="BaseResultMap" type="com.whut.model.BusCustomer">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="id_card" jdbcType="VARCHAR" property="idCard"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <resultMap id="BaseResultMapVo" type="com.whut.vo.BusCustomerVo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="id_card" jdbcType="VARCHAR" property="idCard"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, name, phone, address, id_card, sex, create_time, update_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from bus_customer
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bus_customer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.whut.model.BusCustomer">
+    insert into bus_customer (id, name, phone, 
+      address, id_card, sex, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.whut.model.BusCustomer">
+        insert into bus_customer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="idCard != null">
+                id_card,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="idCard != null">
+                #{idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.whut.model.BusCustomer">
+        update bus_customer
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="idCard != null">
+                id_card = #{idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.whut.model.BusCustomer">
+    update bus_customer
+    set name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <select id="selectListByUserQuery" resultMap="BaseResultMapVo">
+        select
+        <include refid="Base_Column_List"/>
+        from bus_customer
+        <where>
+            <if test="name != null and name != ''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone like concat('%',#{phone},'%')
+            </if>
+            <if test="address != null and address!=''">
+                and address like concat('%',#{address},'%')
+            </if>
+        </where>
+    </select>
+    <select id="selectUserByNameOrPhoneOrIdcard" resultMap="BaseResultMapVo">
+        select
+        <include refid="Base_Column_List"/>
+        from bus_customer
+        <where>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="idCard != null and idCard!=''">
+                and id_card =#{idCard}
+            </if>
+        </where>
+    </select>
+    <insert id="insertSysUserForm">
+    insert into bus_customer (name, phone, address, id_card, sex,create_time,update_time )
+        value (
+        #{name},
+        #{phone},
+        #{address},
+        #{idCard},
+        #{sex},
+        #{createTime},
+        #{updateTime}
+        )
+  </insert>
+
+    <update id="updateById">
+      update bus_customer
+      set
+      name  = #{name},
+      phone = #{phone},
+      address=#{address},
+      id_card=#{idCard},
+      sex = #{sex}
+      where id=#{id}
+    </update>
+
+    <insert id="batchInsert">
+        insert into bus_customer (name, phone, address, id_card, sex,create_time,update_time )
+        values
+        <foreach collection="customers" item="customer" separator=",">
+            (
+            #{customer.name},
+            #{customer.phone},
+            #{customer.address},
+            #{customer.idCard},
+            #{customer.sex},
+            #{customer.createTime},
+            #{customer.updateTime}
+            )
+        </foreach>
+
+    </insert>
+</mapper>
